@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>InsertUser</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/c6c9ba1d75.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+    	<div class="col-lg-4 mt-3">
+          <div class="border bg-white mt-3 p-4">
+          <img th:src="@{/img/logo.png}" height="70" class="offset-3 mb-5"/>
+          <h6 class="text-center mb-3" style="color:#8e8e8e"><strong>登録して友達の写真や動画をチェックしよう</strong></h6>
+          <button class="btn btn-info w-100">
+          	<i class="fab fa-facebook-square" style="color:white"></i>
+          	<strong><span style="color:white">&nbsp;Facebookでログイン</span></strong>
+          </button>
+          <div class="row justify-content:space-around mt-2">
+          	<div class="col-4"><hr></div>
+          	<div class="col-4 text-center"><span style="color:#8e8e8e">または</span></div>
+          	<div class="col-4"><hr></div>
+          </div>
+            <form th:action="@{/insert/toinsert}" method="post" th:object="${insertUserFrom}">
+              <div class="form-group form-group-sm form-floating mb-3">
+                <input type="text" name="userMailAddress" style="height:45px" class="form-control input-sm" id="floatingInputValue" placeholder="neko">
+                <label for="floatingInput" style="color:#8e8e8e; font-size:10px">メールアドレス</label>
+              </div>
+              <div class="form-group form-floating mb-3">
+                <input type="text" name="userFullName" style="height:45px" class="form-control input-sm" id="floatingInputValue" placeholder="neko">
+                <label  for="floatingInput" style="color:#8e8e8e; font-size:10px">フルネーム</label>
+              </div>
+              <div class="form-group form-floating mb-3">
+                <input type="text" name="userName" style="height:45px" class="form-control input-sm" id="floatingInputValue" placeholder="name@example.com">
+                <label  for="floatingInput" style="color:#8e8e8e; font-size:10px">ユーザーネーム</label>
+              </div>
+              <div class="form-group form-floating mb-3">
+                <input type="password" name="userPassword" style="height:45px" class="form-control input-sm" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword" style="color:#8e8e8e; font-size:10px">パスワード</label>
+              </div>
+              <button type="submit" class="btn btn-info w-100" style="color:white">登録する</button>
+            </form>
+            <hr>
+            <div class="text-center">
+            	<p style="color:#8e8e8e">登録することで、Facebookの利用規約、データに関するポリシー、Cookieポリシーに同意するものとします</p>
+            </div>
+          </div>
+  </div>
+  </div>
+  	 <div class="row d-flex justify-content-center">
+    	<div class="col-lg-4 mt-1 mb-2">
+    	<div class="border bg-white mt-3 p-4">
+          	<label style="color:#8e8e8e">アカウントをお持ちですか？</label>
+          	<a th:href="@{/login}">
+          		<strong><span style="color:#00bfff">ログインする</span></strong>
+          	</a>
+          <div>
+        </div>
+     </div>
+ </div>
+<div th:insert="footer::footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>

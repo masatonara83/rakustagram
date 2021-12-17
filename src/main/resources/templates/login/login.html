@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/c6c9ba1d75.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+    	<div class="col-lg-5 mt-5">
+    		<img class="offset-6 mt-2"
+                th:src="@{/img/iphone-160307.png}"
+                height="500"
+              />
+    	</div>
+        <div class=" col-lg-5 mt-5">
+          <div class="border bg-white mt-3 p-4 offset-2">
+          <img th:src="@{/img/logo.png}" height="70" class="offset-3 mb-5"/>
+            <form method="post" th:action="@{/login/tologin}" th:object="${loginForm}">
+              <div class="form-floating mb-3">
+                <input type="text" name="userName" class="form-control" id="floatingInputValue" placeholder="name@example.com">
+                <label  for="floatingInput" style="color:#8e8e8e">User Name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" name="userPassword" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword" style="color:#8e8e8e">Password</label>
+              </div>
+              <button type="submit" class="btn btn-info w-100" style="color:white">ログイン</button>
+            </form>
+            <hr>
+            <div class="text-center">
+            	<a><i class="fab fa-facebook-square" style="color:#3B5998"></i>
+            		<strong><span style="color:#3B5998">&nbsp;Facebookでログイン</span></strong>
+            	</a><br>
+            	<a th:href="@{/password/send}">
+            		<strong><span style="color:black">パスワードを忘れた場合</span></strong>
+            	</a>
+            </div>
+          </div>
+          <div class="border bg-white mt-3 p-4 offset-2 text-center">
+          	<span style="color:#8e8e8e">アカウントはお持ちではないですか？</span>
+          	<a th:href="@{/insert}">
+          		<strong><span style="color:#00bfff">登録する</span></strong>
+          	</a>
+          <div>
+          
+          </div>
+        </div>
+      </div>
+  </div>
+ </div>
+<div th:insert="footer::footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>

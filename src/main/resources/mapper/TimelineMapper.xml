@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.repository.TimelineMapper">
+	<resultMap type="com.example.domain.User" id="userMap">
+		<id column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_image_path" property="userImagePath"/>
+        <collection property="followList" ofType="com.example.domain.Follow">
+        	<id column="follow_id" property="followId"></id>
+        	<id column="following_id" property="followingId"></id>
+        	<id column="follower_id" property="followerId"></id>
+        	<association property="user" resultMap="followerUser"></association>
+        </collection>
+	</resultMap>
+	
+	<resultMap type="com.example.domain.User" id="followerUser">
+		<id column="us_user_id" property="userId"></id>
+		<result column="us_user_name" property="userName"/>
+		<result column="us_user_image_path" property="userImagePath"/>
+		<collection property="articleList" ofType="com.example.domain.Article">
+        	<id column="article_id" property="articleId"></id>
+        	<result column="user_id" property="userId"></result>
+        	<result column="content" property="content"></result>
+        	<result column="article_post_date" property="articlePostDate"></result>
+        	<collection property="imageList" ofType="com.example.domain.Image">
+        		<result column="image_id" property="imageId"></result>
+        		<result column="article_id" property="articleId"></result>
+        		<result column="image_path" property="imagePath"></result>
+        	</collection>
+        	<collection property="tagList" ofType="com.example.domain.Tag">
+        		<result column="tag_id" property="tagId"></result>
+        		<result column="article_id" property="articleId"></result>
+        		<result column="tag_name" property="tagName"></result>
+        	</collection>
+        </collection>
+	</resultMap>
+	
+	<resultMap type="com.example.domain.User" id="commentUserMap">
+		<id column="uc_user_id" property="userId"/>
+		<result column="uc_user_name" property="userName"/>
+		<result column="uc_user_image_path" property="userImagePath"/>
+	</resultMap>
+	
+	<resultMap type="com.example.domain.User" id="favoriteUserMap">
+		<id column="uf_user_id" property="userId"/>
+		<result column="uf_user_name" property="userName"/>
+		<result column="uf_user_image_path" property="userImagePath"/>
+	</resultMap>
+	
+	
+	
+	<select id="findByFollowing" resultType="com.example.domain.Follow">
+		select follow_id, following_id, follower_id from follows where following_id = #{followingId}
+	</select>
+	
+	
+	
+	<select id="allTimeLine" resultMap="userMap">
+		select u.user_id, u.user_name, u.user_image_path,  
+		f.follow_id, f.following_id, f.follower_id, 
+		us.user_id as us_user_id, us.user_name as us_user_name, us.user_image_path as us_user_image_path,  
+		a.article_id, a.user_id, a.content, 
+		a.article_post_date,
+		i.image_id, i.article_id, i.image_path, 
+		t.tag_id, t.article_id, t.tag_name
+		from users u 
+		left join follows f on u.user_id = f.following_id 
+		left join users us on f.follower_id = us.user_id 
+		left join articles a on us.user_id = a.user_id 
+		left join images i on a.article_id = i.article_id 
+		left join tags t on a.article_id = t.article_id 
+		where f.following_id = #{followingId} 
+		order by a.article_post_date DESC, us.user_id DESC;
+	</select>
+	
+	
+	
+	<select id="findByNotMyUser" resultMap="userMap">
+		select user_id, user_name, user_image_path from users
+		where user_id not in (
+		<foreach collection="followerList" item="followerId" separator=",">
+			${followerId}
+		</foreach>
+		) and user_id != #{userId}
+	</select>
+</mapper>
