@@ -11,7 +11,7 @@
         <result column="user_overview" property="userOverview"/>
         <result column="user_mail_address" property="userMailAddress"/>
         <result column="user_password" property="userPassword"/>
-        <result column="user_image_path" property="user_image_path"/>
+        <result column="user_image_path" property="userImagePath"/>
         <result column="user_registration_date" property="userRegistrationDate"/>
         <result column="update_date" property="updateDate"/>
     </resultMap>

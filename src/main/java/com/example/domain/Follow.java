@@ -1,6 +1,5 @@
 package com.example.domain;
 
-import java.util.List;
 
 /**
  * Followドメイン

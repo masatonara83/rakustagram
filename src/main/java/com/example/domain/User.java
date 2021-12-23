@@ -23,12 +23,13 @@ public class User {
 	private 	String 			userMailAddress;
 	//パスワード
 	private 	String 			userPassword;
-	//
-	private		String			userImagePath;
+	
 	//登録日	
 	private 	Timestamp 		userRegistrationDate;
 	//更新日
 	private 	Date 			updateDate;
+	//
+	private		String			userImagePath;
 	//FollowをListで格納
 	private 	List<Follow> 	followList;
 	//ArticleをListで格納
@@ -83,18 +84,11 @@ public class User {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	
 	public String getUserImagePath() {
 		return userImagePath;
 	}
 	public void setUserImagePath(String userImagePath) {
 		this.userImagePath = userImagePath;
-	}
-	public List<Article> getArticleList() {
-		return articleList;
-	}
-	public void setArticleList(List<Article> articleList) {
-		this.articleList = articleList;
 	}
 	public List<Follow> getFollowList() {
 		return followList;
@@ -102,13 +96,19 @@ public class User {
 	public void setFollowList(List<Follow> followList) {
 		this.followList = followList;
 	}
+	public List<Article> getArticleList() {
+		return articleList;
+	}
+	public void setArticleList(List<Article> articleList) {
+		this.articleList = articleList;
+	}
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userFullName=" + userFullName
 				+ ", userOverview=" + userOverview + ", userMailAddress=" + userMailAddress + ", userPassword="
-				+ userPassword + ", userImagePath=" + userImagePath + ", userRegistrationDate=" + userRegistrationDate
-				+ ", updateDate=" + updateDate + ", followList=" + followList + ", articleList=" + articleList + "]";
+				+ userPassword + ", userRegistrationDate=" + userRegistrationDate + ", updateDate=" + updateDate
+				+ ", userImagePath=" + userImagePath + ", followList=" + followList + ", articleList=" + articleList
+				+ "]";
 	}
-	
 	
 }

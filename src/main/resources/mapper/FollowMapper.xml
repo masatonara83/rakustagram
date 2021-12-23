@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.repository.FollowMapper">
+	<select id="findByFollower" resultType="com.example.domain.Follow">
+		select * from follows where following_id = #{userId}
+	</select>
+	
+	<select id="findFollowingCount" resultType="com.example.domain.Follow">
+		select count(follower_id) from follows where following_id = #{userId}
+	</select>
+	
+	<select id="findFollowerCount" resultType="com.example.domain.Follow">
+		select count(following_id) from follows where follower_id = #{userId}
+	</select>
+	
+</mapper>

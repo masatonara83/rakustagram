@@ -17,46 +17,65 @@
 <div class="container">
   <div class="row mt-5">
 	<div class="col-lg-7 mt-5">
-	  <div th:each="user : ${userList}">
-		<div th:each="follow : ${user.followList}">
-		  <div th:each="article : ${follow.user.articleList}">
+		  <div th:each="article : ${articleList}">
 			<div class="card mt-5 mb-5 offset-3">
-			  <div th:each="tag : ${article.tagList}">
 			  <div class="card-title p-3">
-			    <span th:if="${follow.user.userImagePath == null}">
+			    <span th:if="${article.user.userImagePath == null}">
 			  	  <img class="rounded-circle border border-primary ml-3"  th:src="@{/img/no_image.png}" height="60">
 			    </span>
-			    <span th:if="${follow.user.userImagePath != null}">
-				  <img class="rounded-circle border border-primary" th:src="@{/img/} + ${follow.user.userImagePath}" height="60" width="60">
+			    <span th:if="${article.user.userImagePath != null}">
+				  <img class="rounded-circle border border-primary" th:src="@{/img/} + ${article.user.userImagePath}" height="60" width="60">
 			    </span>
-				<a th:href="@{'/detail?id=' + ${follow.user.userId}}">
-				  <span class="m-3" th:text="${follow.user.userName}" style="font-size:20px; color:black"></span>
+				<a th:href="@{'/detail?id=' + ${article.user.userId}}">
+				  <span class="m-3" th:text="${article.user.userName}" style="font-size:20px; color:black"></span>
 				</a>
 			  </div>
-			  <div class="swiper-container">
-				<!-- メイン表示部分 -->
-				<div class="swiper-wrapper">
-				  
-					<div class="swiper-slide" th:each="image : ${article.imageList}">
-					  <img class="card-image" th:src="@{/img/} + ${image.imagePath}" height="400" width="560">
+			  
+			  <div class="card-image">
+				  <div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide" th:each="image : ${article.imageList}">
+						  <span class="card-image"><img th:src="@{/img/} + ${image.imagePath}" height="400" width="560"></span>
+						</div>
 					</div>
-				  
-				</div>
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-next"></div>
-				<div class="swiper-pagination"></div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-pagination"></div>
+				  </div>
 			  </div>
 			  
 			  <div class="card-body">
-				<span th:text="${article.content}"></span><br>
-				<span th:text="${tag.tagName}"></span>
+				  <div class="d-flex justify-content-start">
+					 <form th:action="@{/favorite/timeline}" method="post">
+					  	 <input type="hidden" name="articleId" th:value="${article.articleId}">
+					  	 <div th:each="favorite : ${article.favoriteList}">
+					  	   <span >
+							 <button style="border:none; background-color: white"><i class="far fa-heart"></i></button>
+						   </span>
+						   <span >
+							 <button style="color:red; border:none; background-color: white"><i class="fas fa-heart"></i></button>
+						   </span>
+					     </div>
+					 </form>
+				     <span><i class="far fa-comment"></i></span>
+				</div>
 			  </div>
-			</div>
+			  <div class="card-body">
+				<span th:text="${article.content}"></span><br>
+				<div th:each="tag : ${article.tagList}">
+					<span th:text="${tag.tagName}"></span>
+				</div>
+			  </div>
+			  <div class="card-body">
+			    <div th:each="comment : ${article.commentList}">
+					<span th:text="${comment.comment}"></span>
+					<span th:text="${#dates.format(comment.commentPostDate,'HH時')}"></span>
+				</div>
+			  </div>
 		  </div>
 		</div>
-	  </div>
 	</div>
-  </div>
+  
   
   <div class="col-lg-4 mt-5">
     <table class="mt-5" style="position: fixed">
@@ -93,17 +112,18 @@
       	</th>
       	<th class="p-2"><span th:text="${users.userName}"></span></th>
       	<th class="p-2">
-      	  <form th:action="@{/follow/following}" method="post">
+      	  <form th:action="@{/timeline/follow}" method="post" th:object="${timelineFollowForm}">
+      	  	<input type="hidden" name="anotherUserId" th:value="${users.userId}">
       	    <button class="btn btn-sm btn-outline-primary">フォローする</button>
       	  </form>
       	</th>
       </tr>
     </table>
   </div>
-  
-  
 </div>
 </div>
+  
+
 <div th:insert="timeline-footer::timeline-footer" style="position: fixed"></div>
 
 

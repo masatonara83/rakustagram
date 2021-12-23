@@ -8,7 +8,7 @@ public class Comment {
 	private Integer userId;
 	private Integer articleId;
 	private String comment;
-	private Timestamp commentPostCode;
+	private Timestamp commentPostDate;
 	private User user;
 	
 	//getter and setter
@@ -36,11 +36,11 @@ public class Comment {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public Timestamp getCommentPostCode() {
-		return commentPostCode;
+	public Timestamp getCommentPostDate() {
+		return commentPostDate;
 	}
-	public void setCommentPostCode(Timestamp commentPostCode) {
-		this.commentPostCode = commentPostCode;
+	public void setCommentPostDate(Timestamp commentPostDate) {
+		this.commentPostDate = commentPostDate;
 	}
 	
 	public User getUser() {
@@ -52,7 +52,7 @@ public class Comment {
 	@Override
 	public String toString() {
 		return "Comment [commentId=" + commentId + ", userId=" + userId + ", articleId=" + articleId + ", comment="
-				+ comment + ", commentPostCode=" + commentPostCode + ", user=" + user + "]";
+				+ comment + ", commentPostDate=" + commentPostDate + ", user=" + user + "]";
 	}
 	
 	

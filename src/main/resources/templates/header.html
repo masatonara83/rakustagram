@@ -14,7 +14,7 @@
 	  <nav class="fixed-top navbar navbar-expand-lg navbar-light bg-white border ">
 	    <div class="container">
 	      <div class="collapse navbar-collapse offset-1">
-	      	<a class="navbar-brand" href="#"><img th:src="@{/img/logo.png}" height="45"></a>
+	      	<a class="navbar-brand" th:href="@{/timeline}"><img th:src="@{/img/logo.png}" height="45"></a>
 	      
 	      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="navbar-toggler-icon"></span>
@@ -35,7 +35,7 @@
 	            <a class="nav-link active" href="#"><i class="far fa-comments"></i></a>
 	          </li>
 	          <li class="nav-item">
-	            <a class="nav-link active" href="#"><i class="far fa-plus-square"></i></a>
+	            <a class="nav-link active" th:href="@{/post}"><i class="far fa-plus-square"></i></a>
 	          </li>
 	          <li class="nav-item">
 	            <a class="nav-link active" href="#"><i class="far fa-heart"></i></a>
@@ -45,10 +45,10 @@
 	              <i class="far fa-user"></i>
 	            </a>
 	            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	              <li><a class="dropdown-item" href="#">Action</a></li>
+	              <li><a class="dropdown-item" th:href="@{'user/detail?id=' + ${session.user.userId}}">マイページ</a></li>
 	              <li><a class="dropdown-item" href="#">Another action</a></li>
 	              <li><hr class="dropdown-divider"></li>
-	              <li><a class="dropdown-item" href="#">Something else here</a></li>
+	              <li><a class="dropdown-item" href="#">ログアウト</a></li>
 	            </ul>
 	          </li>
 	        </ul>

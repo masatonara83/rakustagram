@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.repository.ArticleMapper">
+	<resultMap type="com.example.domain.Article" id="ArticleMap">
+		<id column="article_id" property="articleId"/>
+		<collection property="favoriteList" ofType="com.example.domain.Favorite">
+			<id column="favorite_id" property="favoriteId"/>
+	        <result column="user_id" property="userId"/>
+	        <result column="f_article_id" property="articleId"/>
+        </collection>
+	</resultMap>
+
+	<select id="findArticle" resultMap="ArticleMap">
+		select a.article_id, f.favorite_id, f.user_id, f.article_id as f_article_id 
+		from articles a left join favorites f on a.article_id = f.article_id 
+		where a.article_id in(
+		<foreach collection="articleIdList" item="articleId" separator=",">
+			${articleId}
+		</foreach>
+		)
+	</select>
+	
+	<select id="fingArticleCount" resultType="com.example.domain.Article">
+		select count(article_id) from articles where user_id = #{userId}
+	</select>
+	
+	<insert id="insertArticlePost" useGeneratedKeys="true" keyProperty="articleId">
+		insert into articles(user_id, content) values(#{userId}, #{content})
+	</insert>
+	
+</mapper>
