@@ -1,7 +1,7 @@
 package com.example.service;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -41,24 +41,23 @@ public class ArticleService {
 		return mapper.fingArticleCount(userId);
 	}
 	
-	public void insertArticlePost(ArticlePostForm form) {
+	public void insertArticlePost(ArticlePostForm form, List<String> fileEntensions) throws IOException {
 		Article article = new Article();
 		BeanUtils.copyProperties(form, article);
 		mapper.insertArticlePost(article);
-		List<MultipartFile> multiList = form.getImages();
+		List<MultipartFile> imageList = form.getImages();
 		
-		for (MultipartFile multi : multiList) {
-			String imagePath = multi.getOriginalFilename();
-			File filepath = new File("src/main/resources/static/img/" + imagePath);
-			try {
-				byte[] bytes = multi.getBytes();
-				FileOutputStream stream = new FileOutputStream(filepath.toString());
-				stream.write(bytes);
-				stream.close();
-				imageMapper.insertImage(article.getArticleId(), imagePath);
-			} catch (Exception e) {
-				e.printStackTrace();
+		for(int i = 0; i < form.getImages().size(); i++) {
+			
+			String base64FileString = Base64.getEncoder().encodeToString(imageList.get(i).getBytes());
+			if("jpg".equals(fileEntensions.get(i))) {
+				base64FileString = "data:image/jpeg;base64," + base64FileString;
+			} else if ("png".equals(fileEntensions.get(i))) {
+				base64FileString = "data:image/png;base64," + base64FileString;
 			}
+			imageMapper.insertImage(article.getArticleId(), base64FileString);
 		}
+		
+		
 	}
 }

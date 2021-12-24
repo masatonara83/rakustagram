@@ -30,7 +30,9 @@ public class UserSevice {
 	}
 	
 	public Integer findFollowingCount(Integer userId) {
-		return followMapper.findFollowingCount(userId);
+		Integer i = followMapper.findFollowingCount(userId);
+		System.out.println(i);
+		return i;
 	}
 	
 	public Integer findFollowerCount(Integer userId) {

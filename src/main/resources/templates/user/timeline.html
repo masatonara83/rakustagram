@@ -35,7 +35,7 @@
 				  <div class="swiper-container">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide" th:each="image : ${article.imageList}">
-						  <span class="card-image"><img th:src="@{/img/} + ${image.imagePath}" height="400" width="560"></span>
+						  <span class="card-image"><img th:src="${image.imagePath}" height="400" width="560"></span>
 						</div>
 					</div>
 					<div class="swiper-button-prev"></div>
